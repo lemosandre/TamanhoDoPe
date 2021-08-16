@@ -11,11 +11,17 @@ import BackgroundImage from "./assets/shoe-print.png";
 import { shoes } from "./ShoesTable";
 export default function App() {
   const [text, setText] = useState("");
+  const [result, setResult] = useState("");
 
-  const textChange = (text) => {
-    setText(text);
-    console.log(shoes.man);
-  };
+  async function textChange() {
+    shoes.man.map((item) => {
+      let key = Object.keys(item);
+      let value = Object.values(item);
+      if (text == key[0]) {
+        setResult(value[0]);
+      }
+    });
+  }
 
   return (
     <View style={styles.container}>
@@ -23,25 +29,27 @@ export default function App() {
         source={BackgroundImage}
         resizeMode="contain"
         style={styles.image}
-        imageStyle={{ opacity: 0.7 }}
+        imageStyle={{ opacity: 0.3 }}
       >
         <View
           style={{
             height: "70%",
-            backgroundColor: "red",
             justifyContent: "space-evenly",
             alignItems: "center",
             paddingBottom: 100,
           }}
         >
-          <Text>Tamanho Do Seu Pe nos EUA</Text>
+          <Text style={styles.text}>Tamanho Do Seu Pe nos EUA</Text>
           <TextInput
-            style={{ height: 70 }}
+            style={styles.input}
             placeholder="Tamanho do seu Pe"
-            onChangeText={textChange}
+            placeholderTextColor="red"
+            onChangeText={(text) => setText(text)}
             defaultValue={text}
+            onSubmitEditing={textChange}
+            textAlign={"center"}
           />
-          <Text>{text}</Text>
+          <Text style={styles.text}>{result}</Text>
         </View>
       </ImageBackground>
       <StatusBar style="auto" />
@@ -63,5 +71,20 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     aspectRatio: 1.5,
+  },
+  input: {
+    height: 70,
+    margin: 12,
+    width: 150,
+    borderWidth: 1,
+    padding: 10,
+    borderColor: "red",
+    alignItems: "center",
+    color: "blue",
+  },
+  text: {
+    color: "blue",
+    fontSize: 20,
+    fontWeight: "bold",
   },
 });
