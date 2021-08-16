@@ -25,5 +25,3 @@
 3 - Run Android: npx react-native run-android
 
 Andre Lemos
-
-# Testing Git
